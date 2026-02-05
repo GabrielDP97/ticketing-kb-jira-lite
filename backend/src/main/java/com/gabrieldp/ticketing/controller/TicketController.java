@@ -5,6 +5,7 @@ import com.gabrieldp.ticketing.model.Ticket;
 import com.gabrieldp.ticketing.model.TicketStatus;
 import com.gabrieldp.ticketing.service.TicketService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.gabrieldp.ticketing.dto.TicketResponseDTO;
 import java.util.List;
@@ -18,6 +19,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/tickets")
     public List<TicketResponseDTO> getTickets(
             @RequestParam(required = false) TicketStatus status

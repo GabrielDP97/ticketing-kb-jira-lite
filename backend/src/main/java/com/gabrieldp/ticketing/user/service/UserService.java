@@ -44,5 +44,21 @@ public class UserService {
     public List<User> findAll() {
         return users;
     }
+
+    public User findByEmail(String email) {
+        return users.stream()
+                .filter(u -> u.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public User authenticate(String email, String password) {
+        return users.stream()
+                .filter(user -> user.getEmail().equalsIgnoreCase(email)
+                        && user.getPassword().equals(password))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+    }
+
 }
 
